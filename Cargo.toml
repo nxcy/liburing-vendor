@@ -1,0 +1,9 @@
+[package]
+name = "liburing-vendor"
+version = "0.0.1"
+edition = "2021"
+description = "liburing bindings"
+license = "MIT"
+
+[build-dependencies]
+bindgen = "0.69"
