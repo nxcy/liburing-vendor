@@ -27,6 +27,8 @@ fn main() {
         .allowlist_file(concat(out, "liburing/src/include/liburing/io_uring.h"))
         .opaque_type("io_uring")
         .no_copy("io_uring")
+        .blocklist_type("io_uring_sq")
+        .blocklist_type("io_uring_cq")
         .generate()
         .unwrap()
         .write_to_file(concat(out, "bindings.rs"))
