@@ -25,12 +25,14 @@ fn main() {
         .header(concat(out, "liburing/src/ffi.c"))
         .allowlist_file(concat(out, "liburing/src/include/liburing.h"))
         .allowlist_file(concat(out, "liburing/src/include/liburing/io_uring.h"))
+        .opaque_type("io_uring")
+        .no_copy("io_uring")
         .generate()
         .unwrap()
         .write_to_file(concat(out, "bindings.rs"))
         .unwrap();
-    println!("cargo:rustc-link-search={}", concat(out, "liburing/src"));
-    println!("cargo:rustc-link-lib=static:+verbatim=liburing-ffi.a");
+    println!("cargo::rustc-link-search={}", concat(out, "liburing/src"));
+    println!("cargo::rustc-link-lib=static:+verbatim=liburing-ffi.a");
 }
 
 fn concat(a: &str, b: &str) -> &'static str {
