@@ -2,6 +2,8 @@ use std::env;
 use std::path::PathBuf;
 use std::process::Command;
 
+use bindgen::{EnumVariation, NonCopyUnionStyle};
+
 fn main() {
     let cur = &env::var("CARGO_MANIFEST_DIR").unwrap();
     let out = &env::var("OUT_DIR").unwrap();
@@ -25,6 +27,8 @@ fn main() {
         .header(concat(out, "liburing/src/ffi.c"))
         .allowlist_file(concat(out, "liburing/src/include/liburing.h"))
         .allowlist_file(concat(out, "liburing/src/include/liburing/io_uring.h"))
+        .default_enum_style(EnumVariation::ModuleConsts)
+        .default_non_copy_union_style(NonCopyUnionStyle::ManuallyDrop)
         .opaque_type("io_uring")
         .no_copy("io_uring")
         .blocklist_type("io_uring_sq")
